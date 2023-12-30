@@ -23,7 +23,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     
-    const projectCollection = client.db('ProjectDB').collection('products');
+    const projectCollection = client.db('ProjectDB').collection('projects');
 
     //read the product data from the database 
     app.get('/project', async (req, res) => {
@@ -31,6 +31,18 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     })
+
+    app.get('/project/:id', async(req, res) => {
+        const id = req.params.id;
+        const query = {_id: new ObjectId(id)};
+        const options = {
+            // Include only the `title` and `imdb` fields in the returned document
+            projection: {name: 1, author:1, price: 1, service_id:1, img:1 },
+          };
+        const result = await projectCollection.findOne(query);
+        res.send(result);
+    })
+
 
     app.post('/project', async (req, res) => {
       const newProduct = req.body;

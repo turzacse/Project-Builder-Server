@@ -55,19 +55,16 @@ async function run() {
       const id = req.params.id;
       const filter = { _id: new ObjectId(id) }
       const options = { upset: true };
-      const updatedProduct = req.body;
-      const product = {
+      const updateProject = req.body;
+      const project = {
         $set: {
-          photo: updatedProduct.photo,
-          name: updatedProduct.name,
-          brand: updatedProduct.brand,
-          type: updatedProduct.type,
-          price: updatedProduct.price,
-          ratting: updatedProduct.ratting,
-          descriptions: updatedProduct.descriptions,
+          
+          name: updateProject.name,
+          projectName: updateProject.projectName,
+          descriptions: updateProject.descriptions,
         }
       }
-      const result = await projectCollection.updateOne(filter, product, options);
+      const result = await projectCollection.updateOne(filter, project, options);
       res.send(result);
     })
 

@@ -74,7 +74,7 @@ async function run() {
     app.delete('/project/:id', async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) }
-      const result = await cartCollection.deleteOne(query);
+      const result = await projectCollection.deleteOne(query);
       res.send(result);
     })
 
